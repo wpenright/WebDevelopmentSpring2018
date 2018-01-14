@@ -1,0 +1,12 @@
+server {
+	listen 80;
+	listen [::]:80;
+
+	root /home/dev/www/hw01.willenright.com;
+
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name hw01.willenright.com;
+}
+
