@@ -150,7 +150,7 @@ function Cell(params) {
 	// The given tile has not been selected
 	// (Render nothing)
 	else {
-		col = (<button className="col cell unselected" onClick={ () => params.click(x, y) }>{val}</button>);
+		col = (<button className="col cell unselected" onClick={ () => params.click(x, y) }></button>);
 	}
 
 	return col;
