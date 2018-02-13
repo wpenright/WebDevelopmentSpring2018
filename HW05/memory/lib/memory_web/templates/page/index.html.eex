@@ -1,0 +1,7 @@
+<h1 id="index-page">Join a Memory Game</h1>
+<form onsubmit="location.href='/game/' 
+		+ document.getElementById('gameName').value; return false;">
+	<input type="text" id="gameName"/>
+	<button type="submit">Create Game</button>
+</form>
+
