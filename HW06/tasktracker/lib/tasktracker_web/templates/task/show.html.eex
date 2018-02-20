@@ -1,0 +1,23 @@
+<h2>Your Task</h2>
+
+<div>
+
+  <div>
+    <strong>Task Title:</strong>
+    <%= @task.title %>
+  </div>
+
+  <div>
+    <strong>Description:</strong>
+    <%= @task.description %>
+  </div>
+
+  <div>
+    <strong>Time Spent:</strong>
+    <%= @task.time %> minutes
+  </div>
+
+</div>
+
+<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
+<span><%= link "Back", to: task_path(@conn, :index) %></span>
