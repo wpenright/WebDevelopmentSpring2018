@@ -14,5 +14,26 @@
 
 </ul>
 
+<p>
+	<strong>Manager: </strong>
+	<%= if @manager do %>
+		<%= @manager.name %>
+	<% else %>
+		None
+	<% end %>
+</p>
+<p>
+	<strong>Underlings:</strong><br/>
+	<%= for u <- @underlings do %>
+		<p><%= u.id %>: <%= u.name %></p>
+	<% end %>
+</p>
+<p>
+	<%= if @manager == nil do %>
+		<span><%= link "Manage", to: manage_path(@conn, :create, %{"manage" => %{"underling_id" => @user.id, "manager_id" => @current_user.id}}), method: :post, class: "btn btn-danger btn-xs" %></span>
+	<% else %><%= if @manager.id == @current_user.id do %>
+		<span><%= link "Unmanage", to: manage_path(@conn, :delete, @manager_manage), method: :delete, class: "btn btn-danger btn-xs" %></span>
+	<% end %><% end %>
+</p>
 <span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
 <span><%= link "Back", to: user_path(@conn, :index) %></span>

@@ -110,4 +110,142 @@ defmodule Tasktracker.Accounts do
 	Repo.get_by(User, email: email)
   end
 
+
+  alias Tasktracker.Accounts.Manage
+
+  @doc """
+  Returns the list of manages.
+
+  ## Examples
+
+      iex> list_manages()
+      [%Manage{}, ...]
+
+  """
+  def list_manages do
+    Repo.all(Manage)
+  end
+
+  @doc """
+  Gets a single manage.
+
+  Raises `Ecto.NoResultsError` if the Manage does not exist.
+
+  ## Examples
+
+      iex> get_manage!(123)
+      %Manage{}
+
+      iex> get_manage!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_manage!(id), do: Repo.get!(Manage, id)
+
+  @doc """
+  Creates a manage.
+
+  ## Examples
+
+      iex> create_manage(%{field: value})
+      {:ok, %Manage{}}
+
+      iex> create_manage(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_manage(attrs \\ %{}) do
+    %Manage{}
+    |> Manage.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a manage.
+
+  ## Examples
+
+      iex> update_manage(manage, %{field: new_value})
+      {:ok, %Manage{}}
+
+      iex> update_manage(manage, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_manage(%Manage{} = manage, attrs) do
+    manage
+    |> Manage.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Manage.
+
+  ## Examples
+
+      iex> delete_manage(manage)
+      {:ok, %Manage{}}
+
+      iex> delete_manage(manage)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_manage(%Manage{} = manage) do
+    Repo.delete(manage)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking manage changes.
+
+  ## Examples
+
+      iex> change_manage(manage)
+      %Ecto.Changeset{source: %Manage{}}
+
+  """
+  def change_manage(%Manage{} = manage) do
+    Manage.changeset(manage, %{})
+  end
+
+
+  # Get the manager of the user with the given id
+  def getManager(id) do
+	user = get_user(id)
+	user = Repo.preload(user, :managers)
+
+	if length(user.managers) > 0 do
+		[first | _] = user.managers
+		first
+	else
+		nil
+	end
+  end
+
+  # Get the manage relationship for the manager of the given user id
+  def getManagerManage(id) do
+	user = get_user(id)
+	user = Repo.preload(user, :underling_manages)
+
+	if length(user.underling_manages) > 0 do
+		[first | _] = user.underling_manages
+		first
+	else
+		nil
+	end
+	
+  end
+
+  # Get the underlings of the user with the given id
+  def getUnderlings(id) do
+	user = get_user(id)
+	user = Repo.preload(user, :underlings)
+	user.underlings
+  end
+
+  # Get the list of underling IDs for the user with the given id
+  def getUnderlingIds(id) do
+	getUnderlings(id)
+	|> Enum.map(fn(u) -> u.id end)
+  end
+
 end

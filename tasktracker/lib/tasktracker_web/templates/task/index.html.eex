@@ -26,3 +26,30 @@
 </table>
 
 <span><%= link "New Task", to: task_path(@conn, :new) %></span>
+<br/>
+
+<h2>Underling Task Report</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+	  <th>Assigned User ID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+	<%= if Enum.member?(@underling_ids, task.user_id) do %>
+      <tr>
+        <td><%= task.title %></td>
+		<td><%= task.user_id %></td>
+  
+        <td class="text-right">
+          <span><%= link "View", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Update", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+          <span><%= link "Mark As Complete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure? This will delete the task."], class: "btn btn-danger btn-xs" %></span>
+        </td>
+      </tr>
+	<% end %>
+<% end %>

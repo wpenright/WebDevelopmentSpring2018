@@ -15,16 +15,24 @@
     <div class="container">
 	
 	  <div class="row">
-		<div class="col-3 offset-9">
-		  <%= if @current_user do %>
-		  	<p>
-			Logged in: <%= @current_user.name %> | ID: <%= @current_user.id %> | 
-			  <%= link "Log Out", to: "/session", method: :delete %>
-			</p>
-		  <% else %>
-		  	<p>Not Logged In</p>
-		  <% end %>
-		</div>
+		<%= if @current_user do %>
+		  <div class="col-9">
+		    <p class"p-4">
+		      <a href="/tasks">Tasks</a>
+		  	  <a href="/users">Users</a>
+		    </p>
+		  </div>
+		  <div class="col-3">
+			<p class="p-4">
+		      Logged in: <%= @current_user.name %> | ID: <%= @current_user.id %> | 
+		      <%= link "Log Out", to: "/session", method: :delete %>
+		    </p>
+		  </div>
+		<% else %>
+	      <div class="col-3">
+			<p>Not Logged In</p>
+		  </div>
+		<% end %>
 	  </div>
 
 	  <%= if get_flash(@conn, :info) do %>

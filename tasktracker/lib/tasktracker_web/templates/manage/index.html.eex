@@ -1,0 +1,24 @@
+<h2>Listing Manages</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for manage <- @manages do %>
+    <tr>
+
+      <td class="text-right">
+        <span><%= link "Show", to: manage_path(@conn, :show, manage), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: manage_path(@conn, :edit, manage), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: manage_path(@conn, :delete, manage), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Manage", to: manage_path(@conn, :new) %></span>
